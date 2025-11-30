@@ -9,7 +9,7 @@ func main() {
 	const inflationRate = 2.5
 	var investmentAmount float64
 	var expectedReturnRate float64
-	var years float64
+	var years float64 
 	//var years float64 = 10
 
 	fmt.Print("Please enter the Investment Amount: ")
