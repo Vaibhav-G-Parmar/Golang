@@ -1,4 +1,5 @@
 package main
+//entry point of the program
 
 import "fmt"
 
