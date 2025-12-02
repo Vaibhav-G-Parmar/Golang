@@ -4,13 +4,15 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"event-booking-api/db"
 	"event-booking-api/models"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 
+	db.InitDB()						// Initialize database connection
 	server := gin.Default()			// Initialize Gin server
 
 	//******** Routes ********//	

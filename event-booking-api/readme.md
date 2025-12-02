@@ -9,7 +9,7 @@ A RESTful API for managing events and bookings built with Go. Provides user auth
 
 ## Tech stack
 - Language: Go
-- Database: 
+- Database: SQLite
 - Authentication: JWT
 - Optional: 
 
