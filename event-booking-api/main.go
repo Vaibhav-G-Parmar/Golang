@@ -45,7 +45,11 @@ func healthCheck(context *gin.Context) {
 
 // Handler to get all events
 func getEvents(context *gin.Context) {
-	events := models.GetAllEvents()
+	events, err := models.GetAllEvents()
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"Could not fetch events": err.Error()})
+		return
+	}
 	context.JSON(http.StatusOK, events)
 }	
 
@@ -59,6 +63,10 @@ func createEvent(context *gin.Context) {
 	}
 	newEvent.ID = 1
 	newEvent.UserID = 1
-	models.AddEvent(newEvent)
+	err = models.AddEvent(newEvent)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"Could not create a new event": err.Error()})
+		return
+	}
 	context.JSON(http.StatusCreated, gin.H{"message": "Event created successfully!", "event": newEvent})
 }
