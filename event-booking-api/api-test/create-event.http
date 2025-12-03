@@ -2,8 +2,8 @@ POST http://localhost:8080/events
 content-type: application/json
 
 {
-  "title": "Tech Conference 2024",
-  "description": "A conference for tech enthusiasts to discuss the latest trends in technology.",
-  "location": "San Francisco, CA",
-  "dateTime": "2024-09-15T10:00:00Z"
+  "title": "Test 3",
+  "description": "testing event.",
+  "location": "Philadelphia, PA",
+  "dateTime": "2024-10-10T13:00:00Z"
 }
