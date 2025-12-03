@@ -77,3 +77,14 @@ func UpdateEvent(updatedEvent Event) error {
 	_, err = stmt.Exec(updatedEvent.Title, updatedEvent.Description, updatedEvent.Location, updatedEvent.DateTime, updatedEvent.ID)
 	return err
 }
+
+func DeleteEvent(id int64) error {
+	query := `DELETE FROM events WHERE id = ?`
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(id)
+	return err
+}
