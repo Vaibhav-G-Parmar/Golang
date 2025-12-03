@@ -3,14 +3,14 @@
 A RESTful API for managing events and bookings built with Go. Provides user authentication, event management, and booking operations.
 
 ## Features
-- User registration and JWT-based authentication
 - CRUD for events (create, read, update, delete)
+- User registration and JWT-based authentication - * upcoming *
 
 
 ## Tech stack
 - Language: Go
 - Database: SQLite
-- Authentication: JWT
+- Authentication: JWT * upcoming *
 - Optional: 
 
 ## Prerequisites
