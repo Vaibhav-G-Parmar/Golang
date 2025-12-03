@@ -4,9 +4,11 @@
 package main
 
 import (
-	"net/http"
 	"event-booking-api/db"
 	"event-booking-api/models"
+	"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,6 +22,7 @@ func main() {
 	server.GET("/", getRoot)
 	server.GET("/health", healthCheck)
 	server.GET("/events", getEvents)
+	server.GET("/events/:id", getEventById)
 	server.POST("/events", createEvent)
 
 	//*************************//
@@ -52,6 +55,25 @@ func getEvents(context *gin.Context) {
 	}
 	context.JSON(http.StatusOK, events)
 }	
+
+func getEventById(context *gin.Context) {
+	eventId, err := strconv.ParseInt(context.Param("id"), 10, 64)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"error": "Invalid event ID"})
+		return
+	}
+
+	event, err := models.GetEventByID(eventId)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"error": "Could not fetch event"})
+		return
+	}
+	if event == nil {
+		context.JSON(http.StatusNotFound, gin.H{"error": "Event not found"})
+		return
+	}
+	context.JSON(http.StatusOK, event)
+}
 
 // Handler to create a new event
 func createEvent(context *gin.Context) {
