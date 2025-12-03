@@ -2,6 +2,8 @@
 
 A RESTful API for managing events and bookings built with Go. Provides user authentication, event management, and booking operations.
 
+<img width="200" height="320" alt="golang-api" src="https://github.com/user-attachments/assets/4619df65-a4c7-4221-8cc1-eb852adaa1b4" />
+
 ## Features
 - CRUD for events (create, read, update, delete)
 - User registration and JWT-based authentication - * upcoming *
