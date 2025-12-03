@@ -6,12 +6,52 @@ A RESTful API for managing events and bookings built with Go. Provides user auth
 - CRUD for events (create, read, update, delete)
 - User registration and JWT-based authentication - * upcoming *
 
-
 ## Tech stack
 - Language: Go
 - Database: SQLite
 - Authentication: JWT * upcoming *
-- Optional: 
 
 ## Prerequisites
 - Go 1.20+
+
+## Run locally (after cloning)
+
+1. Clone the repo and enter the project directory
+```bash
+git clone <repo-url>
+cd <repo-directory>/event-booking-api
+
+# replace <repo-url> and <repo-directory> accordingly
+```
+
+2. Install dependencies
+```bash
+go mod download
+```
+
+3. Run the server
+```bash
+go run .
+```
+
+4. Open the API
+```text
+http://localhost:8080
+```
+
+## API Endpoints
+- `POST /events` - Create a new event
+- `GET /events` - Get all events
+- `GET /events/:id` - Get event by ID
+- `PUT /events/:id` - Update event by ID
+- `DELETE /events/:id` - Delete event by ID
+
+Please refer to `api-test` folder for sample requests.
+
+## Testing the API
+You can use tools like Postman, curl, or HTTP to test the API endpoints.
+
+## Database
+The application uses SQLite for data storage. The database file `events.db` will be created automatically in the project directory when you run the application for the first time.
+
+
