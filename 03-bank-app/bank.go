@@ -2,11 +2,14 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"os"
 	"strconv"
 	"strings"
 )
+
+const accountBalanceFile = "balance.txt"
 
 // printMenu displays the available options to the user
 func printMenu() {
@@ -23,9 +26,37 @@ func readInput(reader *bufio.Reader) (string, error) {
 	return strings.TrimSpace(input), err
 }
 
+func writeBalanceToFile(balance float64) error {
+	balanceText := fmt.Sprintf("Current Balance: $%.2f", balance)
+	err := os.WriteFile(accountBalanceFile, []byte(balanceText), 0644)
+	//0644 gives read and write permissions to the owner, and read-only permissions to others.
+	if err != nil {
+		fmt.Println("\n### Error writing balance to file. ###")
+		return err
+	}
+	return nil	
+}
+
+func getBalanceFromFile() (float64, error) {
+	data, err := os.ReadFile(accountBalanceFile)
+	if err != nil {
+		return 0.00, errors.New("error reading balance from file")
+	}
+	var balance float64
+	_, err = fmt.Sscanf(string(data), "Current Balance: $%f", &balance)
+	if err != nil {
+		return 0.00, errors.New("error parsing balance from file")
+	}
+	return balance, nil
+}
+
 func main() {
 
-	var accountBalance float64 = 0.00
+	accountBalance, err := getBalanceFromFile()
+	if err != nil {
+		fmt.Println("\n### Error loading balance from file. ###")
+		accountBalance = 0.00
+	}
 	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Println("\n##################################")
@@ -69,6 +100,7 @@ func main() {
 				fmt.Println("\n### Deposit amount must be positive. ###")
 			} else {
 				accountBalance += depositAmount
+				writeBalanceToFile(accountBalance)
 				fmt.Println("\n#################################")
 				fmt.Printf("Successfully deposited $%.2f. \n  New balance is $%.2f\n", depositAmount, accountBalance)
 				fmt.Println("#################################")
@@ -93,7 +125,7 @@ func main() {
 				fmt.Printf("### Available balance is $%.2f ###\n", accountBalance)
 			} else {
 				accountBalance -= withdrawAmount
-
+				writeBalanceToFile(accountBalance)
 				fmt.Println("#################################")
 				fmt.Printf("Successfully withdrew $%.2f. \n  New balance is $%.2f\n", withdrawAmount, accountBalance)
 				fmt.Println("#################################")
